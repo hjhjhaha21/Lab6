@@ -41,11 +41,16 @@ public class FrontCompression {
             return "";
         }
 
-        /*
-         * Complete this function.
-         */
+        String[] wordsArray = corpus.split("\n");
+        String result = "0 " + wordsArray[0] + "\n";
+        for (int i = 1; i < wordsArray.length; i++) {
+            String prevWord = wordsArray[i - 1];
+            String currWord = wordsArray[i];
+            int prefix = FrontCompression.longestPrefix(prevWord, currWord);
+            result = result + prefix + " " + currWord.substring(prefix) + "\n";
+        }
 
-        return "";
+        return result;
     }
 
     /**
@@ -63,12 +68,17 @@ public class FrontCompression {
         } else if (corpus.length() == 0) {
             return "";
         }
+        String[] wordsArray = corpus.split("\n");
+        String result = wordsArray[0].substring(wordsArray[0].indexOf(" ") + 1) + "\n";
+        String returnWord = wordsArray[0].substring(wordsArray[0].indexOf(" ") + 1);
+        for (int i = 1; i < wordsArray.length; i++) {
+            String currWord = wordsArray[i].substring(wordsArray[i].indexOf(" ") + 1);
+            int prefix = Integer.parseInt(wordsArray[i].replaceAll("[\\D]", ""));
+            returnWord = returnWord.substring(0, prefix) + currWord;
+            result += returnWord + "\n";
+        }
 
-        /*
-         * Complete this function.
-         */
-
-        return "";
+        return result;
     }
 
     /**
@@ -79,10 +89,17 @@ public class FrontCompression {
      * @return the length of the common prefix between the two strings
      */
     private static int longestPrefix(final String firstString, final String secondString) {
-        /*
-         * Complete this function.
-         */
-        return 0;
+        int sameChar = 0;
+        int i = 0;
+        while (i < firstString.length() && i < secondString.length()) {
+            if (firstString.charAt(i) == secondString.charAt(i)) {
+                sameChar++;
+            } else {
+                break;
+            }
+            i++;
+        }
+        return sameChar;
     }
 
     /**
